@@ -1,25 +1,13 @@
-import { useFetch } from "./hooks/useFetch";
-
-type Repository = {
-  full_name: string;
-  description: string;
-}
+import { Route, Routes } from "react-router-dom";
+import { Repo } from "./services/pages/Repo";
+import { Repos } from "./services/pages/Repos";
 
 function App() {
-  const { data: repositories, isFetching } = useFetch<Repository[]>('users/dessamgl/repos')
-
-  return (
-   <ul>
-     { isFetching && <p>Carregando...</p>}
-     {repositories?.map(repo => {
-       return (
-         <li key={repo.full_name}>
-           <strong>{repo.full_name}</strong>
-           <p>{repo.description}</p>
-         </li>
-       )
-     })}
-   </ul>
+  return ( 
+    <Routes>
+      <Route path="/" element={<Repos />}/>
+      <Route path="/repos/*" element={<Repo />}/>
+    </Routes>
   )
 }
 
